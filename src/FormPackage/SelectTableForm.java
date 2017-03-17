@@ -96,6 +96,7 @@ public class SelectTableForm extends javax.swing.JFrame {
         EmployeeTableForm newEmployeeTableForm = new EmployeeTableForm(username, password);
         newEmployeeTableForm.setVisible(true);
         this.dispose();
+        new LoginForm().dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -107,8 +108,12 @@ public class SelectTableForm extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-        new LoginForm().setVisible(true);
-        //this.dispose();
+        if(jButton1.getActionCommand()!=null || jButton2.getActionCommand()!=null){
+            this.dispose();
+        }else{
+            this.dispose();
+         new LoginForm().setVisible(true);
+        }
     }//GEN-LAST:event_formWindowClosed
 
     /**

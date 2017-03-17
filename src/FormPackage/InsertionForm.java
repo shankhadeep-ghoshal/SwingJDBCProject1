@@ -6,7 +6,6 @@
 package FormPackage;
 
 import JavaClassPackage.DBConnectClass;
-import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -198,14 +197,8 @@ public class InsertionForm extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         try{
-            if(employeeTableForm!=null){
-                employeeTableForm.dispose();
-                employeeTableForm=new EmployeeTableForm(username, password);
-                employeeTableForm.setVisible(true);
-            }else{
-                employeeTableForm=new EmployeeTableForm(username, password);
-                employeeTableForm.setVisible(true);
-            }
+            employeeTableForm = new EmployeeTableForm(username, password);
+            employeeTableForm.setVisible(true);
             if(connection!=null)connection.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
@@ -215,7 +208,11 @@ public class InsertionForm extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-        new EmployeeTableForm(username, password).setVisible(true);
+        try{
+            if(connection!=null)connection.close();
+        }catch(SQLException e){
+         JOptionPane.showMessageDialog(null, e.getMessage());
+        }    
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
 

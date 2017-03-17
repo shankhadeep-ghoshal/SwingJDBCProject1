@@ -60,10 +60,13 @@ public class StudentInsertionForm extends javax.swing.JFrame {
         phy_teacher_ID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         maths_marks_field = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        cod_tf = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel8.setText("Maths Teacher ID");
 
@@ -80,6 +83,8 @@ public class StudentInsertionForm extends javax.swing.JFrame {
         jLabel2.setText("Last Name");
 
         jLabel3.setText("Marks in Physics");
+
+        jLabel9.setText("Co-Ordinator ID");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,11 +121,13 @@ public class StudentInsertionForm extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel7)
-                                .addComponent(jLabel8))
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel9))
                             .addGap(32, 32, 32)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(maths_teacher_ID)
-                                .addComponent(chem_teacher_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(chem_teacher_ID, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                                .addComponent(cod_tf)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -158,16 +165,12 @@ public class StudentInsertionForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(maths_teacher_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cod_tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FormPackage/1489641751_floppy_disk_save.png"))); // NOI18N
-        jButton1.setText("Save");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FormPackage/Close_Icon.png"))); // NOI18N
         jButton2.setText("Exit");
@@ -177,6 +180,35 @@ public class StudentInsertionForm extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FormPackage/1489641751_floppy_disk_save.png"))); // NOI18N
+        jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,10 +217,7 @@ public class StudentInsertionForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(343, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -196,11 +225,9 @@ public class StudentInsertionForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -209,7 +236,7 @@ public class StudentInsertionForm extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         connection = DBConnectClass.Connection(username, password);
-        String sql = "INSERT INTO `dogpatch06`.`SH1` (`ID`, `First Name`, `Last Name`, `Physics`, `Chemistry`, `Maths`, `Physics Teacher ID`, `Chemistry Teacher ID`, `Maths Teacher ID`) VALUES (?, ? , ? , ? , ? , ? , ? , ? , ?);";
+        String sql = "INSERT INTO `dogpatch06`.`SH1` (`ID`, `First Name`, `Last Name`, `Physics`, `Chemistry`, `Maths`, `Physics Teacher ID`, `Chemistry Teacher ID`, `Maths Teacher ID`,`Co-Ordinator ID`) VALUES (?, ? , ? , ? , ? , ? , ? , ? , ?, ?);";
         String first_name=firstname_field.getText();
         String last_name=lastname_field.getText();
         int physics = Integer.parseInt(physics_marks_field.getText());
@@ -217,7 +244,9 @@ public class StudentInsertionForm extends javax.swing.JFrame {
         int maths = Integer.parseInt(maths_marks_field.getText());
         int phy_id = Integer.parseInt(phy_teacher_ID.getText());
         int chem_id = Integer.parseInt(chem_teacher_ID.getText());
-        int maths_id = Integer.parseInt(maths_teacher_ID.getText());int x=0;
+        int maths_id = Integer.parseInt(maths_teacher_ID.getText());
+        int cod_id = Integer.parseInt(cod_tf.getText());
+        int x=0;
         try{
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM dogpatch06.SH1;");
@@ -236,7 +265,7 @@ public class StudentInsertionForm extends javax.swing.JFrame {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, x+1);pst.setString(2, first_name);pst.setString(3, last_name);
             pst.setInt(4, physics);pst.setInt(5, chemistry);pst.setInt(6, maths);
-            pst.setInt(7, phy_id);pst.setInt(8, chem_id);pst.setInt(9, maths_id);
+            pst.setInt(7, phy_id);pst.setInt(8, chem_id);pst.setInt(9, maths_id);pst.setInt(10, cod_id);
             pst.executeUpdate();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -261,22 +290,26 @@ public class StudentInsertionForm extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        try{
-            if(newStudentsTableForm!=null){
-                newStudentsTableForm.dispose();
-                newStudentsTableForm=new StudentsTableForm(username, password);
-                newStudentsTableForm.setVisible(true);
-            }else{
-                newStudentsTableForm=new StudentsTableForm(username, password);
-                newStudentsTableForm.setVisible(true);
-            }
-            if(connection!=null)connection.close();
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e);
+        if(genericCloseForThisForm()){
+            newStudentsTableForm= new StudentsTableForm(username, password);
+            newStudentsTableForm.setVisible(true);
         }
-        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
+    boolean genericCloseForThisForm(){
+        int x = JOptionPane.showConfirmDialog(null, "Sure about closing this window?","Close Window",JOptionPane.YES_NO_OPTION);
+        if(x==0){
+            try{
+                if(connection!=null)connection.close();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+            this.dispose();
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -313,6 +346,7 @@ public class StudentInsertionForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField chem_marks_field;
     private javax.swing.JTextField chem_teacher_ID;
+    private javax.swing.JTextField cod_tf;
     private javax.swing.JTextField firstname_field;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -324,7 +358,9 @@ public class StudentInsertionForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField lastname_field;
     private javax.swing.JTextField maths_marks_field;
     private javax.swing.JTextField maths_teacher_ID;
