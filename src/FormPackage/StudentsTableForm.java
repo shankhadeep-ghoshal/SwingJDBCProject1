@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -388,6 +390,12 @@ public final class StudentsTableForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -539,11 +547,6 @@ public final class StudentsTableForm extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         show_table_students();
-        /*ID_tf.setText(null);lastname_tf.setText(null);chem_marks.setText(null);
-        firstname_tf.setText(null);phy_marks.setText(null);maths_marks.setText(null);
-        phy_idtf.setText(null);chem_idtf.setText(null);mat_idtf.setText(null);
-        jTextField1.setText(null);jTextField2.setText(null);jTextField3.setText(null);jTextField4.setText(null);
-        jButton4.setEnabled(false);jButton5.setEnabled(false);*/
         manageTFS(this.getContentPane());
         jButton4.setEnabled(false);jButton5.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -665,6 +668,37 @@ public final class StudentsTableForm extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+         if(!jTextField1.getText().equals(null)){
+            String sql;
+        String value = jTextField1.getText().replace("%", "!%");
+        try {
+            sql = "SELECT * FROM SH1 WHERE `First Name` LIKE ? OR `Last Name` LIKE ? ESCAPE '!';";
+            pst= connection.prepareStatement(sql);
+            pst.setString(1,"%"+jTextField1.getText()+"%");pst.setString(2, "%"+jTextField1.getText()+"%");
+            rs = pst.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeTableForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        /*try {
+            sql = "SELECT * FROM employee WHERE Job_Designation LIKE ? ESCAPE '!';";
+            pst= connection.prepareStatement(sql);
+            pst.setString(1,"%"+jTextField1.getText()+"%");
+            rs = pst.executeQuery();
+            employee_table.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeTableForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex);
+        }*/
+        }
+        if("".equals(jTextField1.getText())){
+            show_table_students();
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     /**
      * @param args the command line arguments
