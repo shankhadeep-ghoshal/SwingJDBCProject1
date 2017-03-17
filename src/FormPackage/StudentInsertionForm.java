@@ -246,29 +246,20 @@ public class StudentInsertionForm extends javax.swing.JFrame {
         int chem_id = Integer.parseInt(chem_teacher_ID.getText());
         int maths_id = Integer.parseInt(maths_teacher_ID.getText());
         int cod_id = Integer.parseInt(cod_tf.getText());
-        int x=0;
+        int x=1;
         try{
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM dogpatch06.SH1;");
             while(rs.next()){
-                try{
-                    if(!rs.next())x=0;
-                }catch(NullPointerException e){
-                   JOptionPane.showMessageDialog(null, "Table is empty \n"+e.getMessage());
-                }
                 x = Integer.parseInt(rs.getString("ID"));
             }
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null,e.getMessage());
-        }
-        try{
             pst = connection.prepareStatement(sql);
             pst.setInt(1, x+1);pst.setString(2, first_name);pst.setString(3, last_name);
             pst.setInt(4, physics);pst.setInt(5, chemistry);pst.setInt(6, maths);
             pst.setInt(7, phy_id);pst.setInt(8, chem_id);pst.setInt(9, maths_id);pst.setInt(10, cod_id);
             pst.executeUpdate();
         }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null,e.getMessage());
         }
         firstname_field.setText("");physics_marks_field.setText("");
         lastname_field.setText("");phy_teacher_ID.setText("");
