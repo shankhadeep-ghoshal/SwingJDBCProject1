@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author Echo01
  */
-public class StudentInsertionForm extends javax.swing.JFrame {
+public class SHInsertionForm extends javax.swing.JFrame {
     static String username,password;
     static Connection connection=null;
     static PreparedStatement pst = null;
@@ -29,8 +29,8 @@ public class StudentInsertionForm extends javax.swing.JFrame {
      * @param username
      * @param password
      */
-    public StudentInsertionForm(String username,String password) {
-        StudentInsertionForm.username= username;StudentInsertionForm.password = password;
+    public SHInsertionForm(String username,String password) {
+        SHInsertionForm.username= username;SHInsertionForm.password = password;
         initComponents();
     }
 
@@ -338,19 +338,20 @@ public class StudentInsertionForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentInsertionForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SHInsertionForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentInsertionForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SHInsertionForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentInsertionForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SHInsertionForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentInsertionForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SHInsertionForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new StudentInsertionForm(StudentInsertionForm.username, StudentInsertionForm.password).setVisible(true);
+            new SHInsertionForm(SHInsertionForm.username, SHInsertionForm.password).setVisible(true);
         });
     }
 

@@ -594,7 +594,7 @@ public final class SH1Form extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        new StudentInsertionForm(username, password).setVisible(true);
+        new SHInsertionForm(username, password).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 

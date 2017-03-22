@@ -34,7 +34,7 @@ public class Employee_Table_Show extends javax.swing.JFrame {
         show_table();
     }
     private void show_table(){
-        String query1 = "SELECT ID,Name,Job_Designation FROM dogpatch06.employee;";
+        String query1 = "SELECT ID,Name,Job_Designation,`Subject ID` FROM dogpatch06.employee;";
         try {
             connection = DBConnectClass.Connection(username, password);
             pst = connection.prepareStatement(query1);
