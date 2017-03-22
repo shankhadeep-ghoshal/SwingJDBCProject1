@@ -48,7 +48,6 @@ public class EmployeeTableForm extends javax.swing.JFrame {
         EmployeeTableForm.username = username;
         EmployeeTableForm.password = password;
 
-        String query2 = "SELECT * from `EmployeeDB`.`employee1`;";
         String query1 = "SELECT * FROM dogpatch06.employee;";
         try {
             pst = connection.prepareStatement(query1);
@@ -380,62 +379,7 @@ public class EmployeeTableForm extends javax.swing.JFrame {
 
     private void employee_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employee_tableMouseClicked
         // TODO add your handling code here:
-        jButton4.setEnabled(true);
-        jButton6.setEnabled(true);
-        try {
-            int rowNo = employee_table.getSelectedRow();
-            String Clicked_Table = employee_table.getModel().getValueAt(rowNo, 0).toString();
-            String query = "SELECT * FROM dogpatch06.employee where ID = ?;";
-            pst = connection.prepareStatement(query);
-            pst.setInt(1, Integer.parseInt(Clicked_Table));
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                String ID = rs.getString("ID");
-                ID_field.setText(ID);
-                String Name = rs.getString("Name");
-                name_field.setText(Name);
-                String Job = rs.getString("Job_Designation");
-                job_field.setText(Job);
-                String sal = rs.getString("Salary");
-                salary_field.setText(sal);
-                
-                int num = Integer.parseInt(sal);
-                if(Job.contains("Director") || Name.contains("Trinadh") || Name.contains("K Vijay Kumar") ){
-                    name_field.setBackground(Color.red);
-                }
-                else if(Job.contains("Teacher"))name_field.setBackground(Color.YELLOW);
-                else if(Job.contains("Co-Ordinator")|| Job.contains("Warden") || Job.contains("Mess"))name_field.setBackground(Color.GREEN);
-                if(num<=20000){
-                    salary_field.setBackground(Color.red);
-                }
-                else if(num>20000&&num<35000){
-                    salary_field.setBackground(Color.LIGHT_GRAY);
-                }
-                else if(num>=35000&&num<60000){
-                    salary_field.setBackground(Color.YELLOW);
-                }
-                else if(num>=60000){
-                    salary_field.setBackground(Color.GREEN);
-                }
-                else{
-                    /*name_field.setBackground(Color.WHITE);
-                    salary_field.setBackground(Color.WHITE);*/
-                }
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        } finally {
-            try {
-                if (pst != null) {
-                    pst.close();
-                }
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
+        TableSelectorFunction();
     }//GEN-LAST:event_employee_tableMouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -590,7 +534,30 @@ public class EmployeeTableForm extends javax.swing.JFrame {
     private void employee_tableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_employee_tableKeyReleased
         // TODO add your handling code here:
          if(evt.getKeyCode()==KeyEvent.VK_DOWN || evt.getKeyCode()==KeyEvent.VK_UP){
-            jButton4.setEnabled(true);
+            TableSelectorFunction();
+        }
+    }//GEN-LAST:event_employee_tableKeyReleased
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        MessageFormat header = new MessageFormat("Report");
+        MessageFormat footer = new MessageFormat("Page{0,number,integer}");
+        try{
+            employee_table.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        }catch(java.awt.print.PrinterException e){
+            System.err.format("Cannot print %s%n",e.getMessage());
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        SelectTableForm newSelectTableForm = new SelectTableForm(username, password);
+        newSelectTableForm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void TableSelectorFunction(){
+        jButton4.setEnabled(true);
         jButton6.setEnabled(true);
         try {
             int rowNo = employee_table.getSelectedRow();
@@ -609,7 +576,7 @@ public class EmployeeTableForm extends javax.swing.JFrame {
                 String sal = rs.getString("Salary");
                 salary_field.setText(sal);
                 
-                 int num = Integer.parseInt(sal);
+                int num = Integer.parseInt(sal);
                 if(Job.contains("Director") || Name.contains("Trinadh") || Name.contains("K Vijay Kumar") ){
                     name_field.setBackground(Color.red);
                 }
@@ -634,28 +601,19 @@ public class EmployeeTableForm extends javax.swing.JFrame {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
-        } 
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
-    }//GEN-LAST:event_employee_tableKeyReleased
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        MessageFormat header = new MessageFormat("Report");
-        MessageFormat footer = new MessageFormat("Page{0,number,integer}");
-        try{
-            employee_table.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-        }catch(java.awt.print.PrinterException e){
-            System.err.format("Cannot print %s%n",e.getMessage());
-        }
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        SelectTableForm newSelectTableForm = new SelectTableForm(username, password);
-        newSelectTableForm.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */

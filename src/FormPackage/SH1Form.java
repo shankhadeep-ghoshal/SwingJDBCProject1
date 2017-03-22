@@ -6,6 +6,7 @@
 package FormPackage;
 
 import JavaClassPackage.DBConnectClass;
+import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
 import java.awt.Container;
 import java.sql.Connection;
@@ -24,7 +25,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author Echo01
  */
-public final class StudentsTableForm extends javax.swing.JFrame {
+public final class SH1Form extends javax.swing.JFrame {
     static String username,password;
     static Connection connection = null;
     static PreparedStatement pst = null;
@@ -35,8 +36,8 @@ public final class StudentsTableForm extends javax.swing.JFrame {
      * @param username
      * @param password
      */
-    public StudentsTableForm(String username,String password) {
-        StudentsTableForm.username = username ; StudentsTableForm.password = password;
+    public SH1Form(String username,String password) {
+        SH1Form.username = username ; SH1Form.password = password;
         connection = DBConnectClass.Connection(username, password);
         initComponents();
         show_table_students();
@@ -120,7 +121,10 @@ public final class StudentsTableForm extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
+        jButton1.setBackground(new java.awt.Color(225, 34, 30));
+        jButton1.setForeground(new java.awt.Color(60, 45, 7));
         jButton1.setText("Logout");
+        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -388,6 +392,11 @@ public final class StudentsTableForm extends javax.swing.JFrame {
                 jTable1MouseClicked(evt);
             }
         });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable1KeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -550,7 +559,7 @@ public final class StudentsTableForm extends javax.swing.JFrame {
         manageTFS(this.getContentPane());
         jButton4.setEnabled(false);jButton5.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
-    void manageTFS(Container container){
+    private void manageTFS(Container container){
         for(Component k : container.getComponents()){
             if(k instanceof JTextField){
                 JTextField temp = (JTextField)k;
@@ -569,62 +578,7 @@ public final class StudentsTableForm extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-        jButton4.setEnabled(true);jButton5.setEnabled(true);
-        firstname_tf.setEditable(true);lastname_tf.setEditable(true);
-        phy_marks.setEditable(true);chem_marks.setEditable(true);maths_marks.setEditable(true);
-        phy_idtf.setEditable(true);chem_idtf.setEditable(true);mat_idtf.setEditable(true);tenia_idtf.setEditable(true);
-        connection = DBConnectClass.Connection(username, password);
-        String query = "SELECT * FROM dogpatch06.SH1 where ID = ?;";
-        String qphy = "select employee.Name from dogpatch06.employee,dogpatch06.SH1 where " +
-"(SH1.`Physics Teacher ID` = employee.ID)AND SH1.`ID`=?;";
-        String qchem = "select employee.Name from dogpatch06.employee,dogpatch06.SH1 where (SH1.`Chemistry Teacher ID` = employee.ID)AND SH1.`ID`=?;";
-        String qmat = "select employee.Name from dogpatch06.employee,dogpatch06.SH1 where (SH1.`Maths Teacher ID` = employee.ID)AND SH1.`ID`=?";
-        String qcod = "select employee.Name from dogpatch06.employee,dogpatch06.SH1 where (SH1.`Co-Ordinator ID` = employee.ID)AND SH1.`ID`=?;";
-        try{
-            int rowNo = jTable1.getSelectedRow();
-            String Clicked_Table = jTable1.getModel().getValueAt(rowNo, 0).toString();
-            pst = connection.prepareStatement(query);
-            PreparedStatement pst2,pst3,pst4,pst5;
-            pst2 = connection.prepareStatement(qphy);pst3=connection.prepareStatement(qchem);pst4=connection.prepareStatement(qmat);pst5=connection.prepareStatement(qcod);
-            pst2.setInt(1, Integer.parseInt(Clicked_Table));pst3.setInt(1, Integer.parseInt(Clicked_Table));
-            pst4.setInt(1, Integer.parseInt(Clicked_Table));pst5.setInt(1, Integer.parseInt(Clicked_Table));
-            pst.setInt(1, Integer.parseInt(Clicked_Table));
-            ResultSet rs2,rs3,rs4,rs5;
-            rs2=pst2.executeQuery();rs3=pst3.executeQuery();rs4=pst4.executeQuery();rs5=pst5.executeQuery();
-            rs = pst.executeQuery();
-            if(rs.next()){
-                ID_tf.setText(rs.getString("ID"));
-                firstname_tf.setText(rs.getString("First Name"));
-                lastname_tf.setText(rs.getString("Last Name"));
-                phy_marks.setText(rs.getString("Physics"));
-                chem_marks.setText(rs.getString("Chemistry"));
-                maths_marks.setText(rs.getString("Maths"));
-                phy_idtf.setText(rs.getString("Physics Teacher ID"));
-                chem_idtf.setText(rs.getString("Chemistry Teacher ID"));
-                mat_idtf.setText(rs.getString("Maths Teacher ID"));
-                tenia_idtf.setText(rs.getString("Co-Ordinator ID"));
-            }
-            if(rs2.next()){
-                PTName.setText(rs2.getString("Name"));
-            }
-            if(rs3.next()){
-                CTName.setText(rs3.getString("Name"));
-            }
-            if(rs4.next()){
-                MTName.setText(rs4.getString("Name"));
-            }
-            if(rs5.next()){
-                TName.setText(rs5.getString("Name"));
-            }
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }finally{
-            try{
-                if(pst!=null)pst.close();
-            }catch(SQLException e){
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        }
+        TableSelectorFunction();
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -700,6 +654,71 @@ public final class StudentsTableForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField1KeyReleased
 
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_DOWN || evt.getKeyCode()==KeyEvent.VK_UP){
+            TableSelectorFunction();
+        }
+    }//GEN-LAST:event_jTable1KeyReleased
+
+    private void TableSelectorFunction(){
+        jButton4.setEnabled(true);jButton5.setEnabled(true);
+        firstname_tf.setEditable(true);lastname_tf.setEditable(true);
+        phy_marks.setEditable(true);chem_marks.setEditable(true);maths_marks.setEditable(true);
+        phy_idtf.setEditable(true);chem_idtf.setEditable(true);mat_idtf.setEditable(true);tenia_idtf.setEditable(true);
+        connection = DBConnectClass.Connection(username, password);
+        String query = "SELECT * FROM dogpatch06.SH1 where ID = ?;";
+        String qphy = "select employee.Name from dogpatch06.employee,dogpatch06.SH1 where " +
+"(SH1.`Physics Teacher ID` = employee.ID)AND SH1.`ID`=?;";
+        String qchem = "select employee.Name from dogpatch06.employee,dogpatch06.SH1 where (SH1.`Chemistry Teacher ID` = employee.ID)AND SH1.`ID`=?;";
+        String qmat = "select employee.Name from dogpatch06.employee,dogpatch06.SH1 where (SH1.`Maths Teacher ID` = employee.ID)AND SH1.`ID`=?";
+        String qcod = "select employee.Name from dogpatch06.employee,dogpatch06.SH1 where (SH1.`Co-Ordinator ID` = employee.ID)AND SH1.`ID`=?;";
+        try{
+            int rowNo = jTable1.getSelectedRow();
+            String Clicked_Table = jTable1.getModel().getValueAt(rowNo, 0).toString();
+            pst = connection.prepareStatement(query);
+            PreparedStatement pst2,pst3,pst4,pst5;
+            pst2 = connection.prepareStatement(qphy);pst3=connection.prepareStatement(qchem);pst4=connection.prepareStatement(qmat);pst5=connection.prepareStatement(qcod);
+            pst2.setInt(1, Integer.parseInt(Clicked_Table));pst3.setInt(1, Integer.parseInt(Clicked_Table));
+            pst4.setInt(1, Integer.parseInt(Clicked_Table));pst5.setInt(1, Integer.parseInt(Clicked_Table));
+            pst.setInt(1, Integer.parseInt(Clicked_Table));
+            ResultSet rs2,rs3,rs4,rs5;
+            rs2=pst2.executeQuery();rs3=pst3.executeQuery();rs4=pst4.executeQuery();rs5=pst5.executeQuery();
+            rs = pst.executeQuery();
+            if(rs.next()){
+                ID_tf.setText(rs.getString("ID"));
+                firstname_tf.setText(rs.getString("First Name"));
+                lastname_tf.setText(rs.getString("Last Name"));
+                phy_marks.setText(rs.getString("Physics"));
+                chem_marks.setText(rs.getString("Chemistry"));
+                maths_marks.setText(rs.getString("Maths"));
+                phy_idtf.setText(rs.getString("Physics Teacher ID"));
+                chem_idtf.setText(rs.getString("Chemistry Teacher ID"));
+                mat_idtf.setText(rs.getString("Maths Teacher ID"));
+                tenia_idtf.setText(rs.getString("Co-Ordinator ID"));
+            }
+            if(rs2.next()){
+                PTName.setText(rs2.getString("Name"));
+            }
+            if(rs3.next()){
+                CTName.setText(rs3.getString("Name"));
+            }
+            if(rs4.next()){
+                MTName.setText(rs4.getString("Name"));
+            }
+            if(rs5.next()){
+                TName.setText(rs5.getString("Name"));
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            try{
+                if(pst!=null)pst.close();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -717,19 +736,20 @@ public final class StudentsTableForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentsTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SH1Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentsTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SH1Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentsTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SH1Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentsTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SH1Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new StudentsTableForm(StudentsTableForm.username, StudentsTableForm.password).setVisible(true);
+            new SH1Form(SH1Form.username, SH1Form.password).setVisible(true);
         });
     }
 

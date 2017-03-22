@@ -21,7 +21,7 @@ public class StudentInsertionForm extends javax.swing.JFrame {
     static String username,password;
     static Connection connection=null;
     static PreparedStatement pst = null;
-    private StudentsTableForm newStudentsTableForm = null;
+    private SH1Form newStudentsTableForm = null;
     
 
     /**
@@ -286,10 +286,10 @@ public class StudentInsertionForm extends javax.swing.JFrame {
             }
             if(newStudentsTableForm!=null){
                 newStudentsTableForm.dispose();
-                newStudentsTableForm=new StudentsTableForm(username, password);
+                newStudentsTableForm=new SH1Form(username, password);
                 newStudentsTableForm.setVisible(true);
             }else{
-                newStudentsTableForm=new StudentsTableForm(username, password);
+                newStudentsTableForm=new SH1Form(username, password);
                 newStudentsTableForm.setVisible(true);
             }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -297,7 +297,7 @@ public class StudentInsertionForm extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if(genericCloseForThisForm()){
-            newStudentsTableForm= new StudentsTableForm(username, password);
+            newStudentsTableForm= new SH1Form(username, password);
             newStudentsTableForm.setVisible(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
