@@ -461,11 +461,13 @@ public class PMTForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         show_PMT_form();
         manageTFS(this.getContentPane());
+        jTextField1.setEditable(true);
         jButton4.setEnabled(false);jButton5.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
         new PMTInsertionForm().setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jButton3ActionPerformed
 
