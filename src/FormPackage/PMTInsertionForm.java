@@ -257,7 +257,7 @@ public class PMTInsertionForm extends javax.swing.JFrame {
         try {
             ps = connection.prepareStatement(query);
             ps.setInt(1, ID+1);ps.setString(2, first_name);ps.setString(3, last_name);ps.setInt(4, phy_score);ps.setInt(5, chem_score);ps.setInt(6, bio_score);ps.setInt(7, PhyID);ps.setInt(8, ChemID);ps.setInt(9, BioID);ps.setInt(10, TeniaID);
-            ps.execute();
+            ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Saved");
         } catch (SQLException ex) {
             Logger.getLogger(PMTInsertionForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -270,7 +270,7 @@ public class PMTInsertionForm extends javax.swing.JFrame {
         for(Component k : container.getComponents()){
             if(k instanceof JTextField){
                 JTextField temp = (JTextField)k;
-                temp.setText(null);temp.setEditable(false);
+                temp.setText(null);//temp.setEditable(false);
             }else{
                 if(k instanceof Container)manageTFS((Container)k);
             }
