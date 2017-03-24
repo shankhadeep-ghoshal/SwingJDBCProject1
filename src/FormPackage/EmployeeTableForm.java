@@ -108,6 +108,11 @@ public class EmployeeTableForm extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jToolBar1.setRollover(true);
 
@@ -555,6 +560,16 @@ public class EmployeeTableForm extends javax.swing.JFrame {
         newSelectTableForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        try{
+            if(connection!=null)connection.close();
+        }catch(SQLException e){
+            Logger.getLogger(EmployeeTableForm.class.getName()).log(Level.SEVERE,null,e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_formWindowClosed
 
     private void TableSelectorFunction(){
         jButton4.setEnabled(true);

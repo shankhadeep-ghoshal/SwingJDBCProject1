@@ -13,9 +13,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import net.proteanit.sql.DbUtils;
 
@@ -63,6 +65,8 @@ public class PMTForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jButton2 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        jButton7 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
@@ -107,6 +111,11 @@ public class PMTForm extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jToolBar1.setRollover(true);
 
@@ -132,6 +141,18 @@ public class PMTForm extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jButton2);
+        jToolBar1.add(jSeparator2);
+
+        jButton7.setText("show employee table");
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton7);
 
         jLabel1.setText("Search");
 
@@ -372,6 +393,11 @@ public class PMTForm extends javax.swing.JFrame {
         });
 
         jButton6.setText("Print");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -570,20 +596,50 @@ public class PMTForm extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        connection = DBConnectClass.Connection(username, password);
-        String query = "DELETE FROM dogpatch06.PMT where ID=?";
+        int x = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?","Confirm Deletion",JOptionPane.YES_NO_OPTION);
+        if(x==0){
+            connection = DBConnectClass.Connection(username, password);
+            String query = "DELETE FROM dogpatch06.PMT where ID=?";
+            try{
+                pst = connection.prepareStatement(query);
+                pst.setInt(1, Integer.parseInt(ID_tf.getText()));
+                pst.executeUpdate();
+                jTextField1.setText(null);
+                show_PMT_table();
+                JOptionPane.showMessageDialog(null, "Deleted");
+            }catch(SQLException e){
+                Logger.getLogger(PMTForm.class.getName()).log(Level.SEVERE,null,e.getMessage());
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+            DisableNRenameTFS(this.getContentPane());
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        new Employee_Table_Show(username, password).setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+         MessageFormat header = new MessageFormat("Report");
+        MessageFormat footer = new MessageFormat("Page{0,number,integer}");
         try{
-            pst = connection.prepareStatement(query);
-            pst.setInt(1, Integer.parseInt(ID_tf.getText()));
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Deleted");
+            jTable1.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        }catch(java.awt.print.PrinterException e){
+            System.err.format("Cannot print %s%n",e.getMessage());
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        try{
+            if(connection!=null)connection.close();
         }catch(SQLException e){
             Logger.getLogger(PMTForm.class.getName()).log(Level.SEVERE,null,e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        DisableNRenameTFS(this.getContentPane());
-        show_PMT_table();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_formWindowClosed
 
     private void DisableNRenameTFS(Container container){
         for(Component k : container.getComponents()){
@@ -703,6 +759,7 @@ public class PMTForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -726,6 +783,7 @@ public class PMTForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;

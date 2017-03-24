@@ -66,6 +66,8 @@ public final class SH1Form extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jButton2 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        jButton7 = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -110,7 +112,6 @@ public final class SH1Form extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -146,6 +147,18 @@ public final class SH1Form extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jButton2);
+        jToolBar1.add(jSeparator2);
+
+        jButton7.setText("show employee table");
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton7);
 
         jLabel1.setText("Search");
 
@@ -492,9 +505,6 @@ public final class SH1Form extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -529,8 +539,12 @@ public final class SH1Form extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-        //new SelectTableForm(username, password).setVisible(true);
-        this.dispose();
+        try{
+            if(connection!=null)connection.close();
+        }catch(SQLException e){
+            Logger.getLogger(SH1Form.class.getName()).log(Level.SEVERE,null,e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_formWindowClosed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
@@ -562,6 +576,7 @@ public final class SH1Form extends javax.swing.JFrame {
         // TODO add your handling code here:
         show_table_students();
         manageTFS(this.getContentPane());
+        jTextField1.setText(null);jTextField1.setEditable(true);
         jButton4.setEnabled(false);jButton5.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
     
@@ -649,19 +664,29 @@ public final class SH1Form extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        connection = DBConnectClass.Connection(username, password);
-        String query = "DELETE FROM dogpatch06.SH1 WHERE ID=?";
-        try{
-            pst = connection.prepareStatement(query);
-            pst.setInt(1, Integer.parseInt(ID_tf.getText()));
-            pst.executeUpdate();
-            show_table_students();
-            JOptionPane.showMessageDialog(null, "Deleted");
-        }catch(SQLException e){
-            Logger.getLogger(SH1Form.class.getName()).log(Level.SEVERE,null,e.getMessage());
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        int x = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?","Confirm Deletion",JOptionPane.YES_NO_OPTION);
+        if(x==0){
+            connection = DBConnectClass.Connection(username, password);
+            String query = "DELETE FROM dogpatch06.SH1 WHERE ID=?";
+            try{
+                pst = connection.prepareStatement(query);
+                pst.setInt(1, Integer.parseInt(ID_tf.getText()));
+                pst.executeUpdate();
+                jTextField1.setText(null);
+                manageTFS(this.getContentPane());
+                show_table_students();
+                JOptionPane.showMessageDialog(null, "Deleted");
+            }catch(SQLException e){
+                Logger.getLogger(SH1Form.class.getName()).log(Level.SEVERE,null,e.getMessage());
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        } 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        new Employee_Table_Show(username, password).setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void manageTFS(Container container){
         for(Component k : container.getComponents()){
@@ -780,6 +805,7 @@ public final class SH1Form extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -797,7 +823,6 @@ public final class SH1Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -806,6 +831,7 @@ public final class SH1Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;
