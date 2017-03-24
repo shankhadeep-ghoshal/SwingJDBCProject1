@@ -655,6 +655,7 @@ public final class SH1Form extends javax.swing.JFrame {
             pst = connection.prepareStatement(query);
             pst.setInt(1, Integer.parseInt(ID_tf.getText()));
             pst.executeUpdate();
+            show_table_students();
             JOptionPane.showMessageDialog(null, "Deleted");
         }catch(SQLException e){
             Logger.getLogger(SH1Form.class.getName()).log(Level.SEVERE,null,e.getMessage());

@@ -281,7 +281,7 @@ public class SHInsertionForm extends javax.swing.JFrame {
         maths_marks_field.setText("");chem_marks_field.setText("");
         maths_teacher_ID.setText("");chem_teacher_ID.setText("");
         JOptionPane.showMessageDialog(null, "Saved","Saved",JOptionPane.OK_OPTION);
-        if(this!=null){
+        /*if(this!=null){
                 dispose();
             }
             if(newStudentsTableForm!=null){
@@ -291,7 +291,7 @@ public class SHInsertionForm extends javax.swing.JFrame {
             }else{
                 newStudentsTableForm=new SH1Form(username, password);
                 newStudentsTableForm.setVisible(true);
-            }
+            }*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
