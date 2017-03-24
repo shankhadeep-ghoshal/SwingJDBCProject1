@@ -348,6 +348,11 @@ public final class SH1Form extends javax.swing.JFrame {
 
         jButton4.setText("Delete");
         jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -559,16 +564,7 @@ public final class SH1Form extends javax.swing.JFrame {
         manageTFS(this.getContentPane());
         jButton4.setEnabled(false);jButton5.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
-    private void manageTFS(Container container){
-        for(Component k : container.getComponents()){
-            if(k instanceof JTextField){
-                JTextField temp = (JTextField)k;
-                temp.setText(null);temp.setEditable(false);
-            }else{
-                if(k instanceof Container)manageTFS((Container)k);
-            }
-        }
-    }
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         SelectTableForm newSelectTableForm = new SelectTableForm(username, password);
@@ -651,6 +647,31 @@ public final class SH1Form extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable1KeyReleased
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        connection = DBConnectClass.Connection(username, password);
+        String query = "DELETE FROM dogpatch06.SH1 WHERE ID=?";
+        try{
+            pst = connection.prepareStatement(query);
+            pst.setInt(1, Integer.parseInt(ID_tf.getText()));
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Deleted");
+        }catch(SQLException e){
+            Logger.getLogger(SH1Form.class.getName()).log(Level.SEVERE,null,e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void manageTFS(Container container){
+        for(Component k : container.getComponents()){
+            if(k instanceof JTextField){
+                JTextField temp = (JTextField)k;
+                temp.setText(null);temp.setEditable(false);
+            }else{
+                if(k instanceof Container)manageTFS((Container)k);
+            }
+        }
+    }
     private void TableSelectorFunction(){
         jButton4.setEnabled(true);jButton5.setEnabled(true);
         firstname_tf.setEditable(true);lastname_tf.setEditable(true);

@@ -101,7 +101,6 @@ public class PMTForm extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        SearchClearBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -358,9 +357,19 @@ public class PMTForm extends javax.swing.JFrame {
 
         jButton4.setText("Update");
         jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Delete");
         jButton5.setEnabled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Print");
 
@@ -390,13 +399,6 @@ public class PMTForm extends javax.swing.JFrame {
                 .addComponent(jButton6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        SearchClearBtn.setText("Clear");
-        SearchClearBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchClearBtnActionPerformed(evt);
-            }
-        });
 
         jMenu1.setText("File");
 
@@ -442,8 +444,6 @@ public class PMTForm extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(SearchClearBtn)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -451,11 +451,10 @@ public class PMTForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SearchClearBtn))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -504,7 +503,7 @@ public class PMTForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         show_PMT_table();
         DisableNRenameTFS(this.getContentPane());
-        jTextField1.setEditable(true);
+        jTextField1.setEditable(true);jTextField1.setText(null);
         jButton4.setEnabled(false);jButton5.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -517,21 +516,14 @@ public class PMTForm extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         showData();
+        jButton4.setEnabled(true);jButton5.setEnabled(true);
     }//GEN-LAST:event_jTable1MouseClicked
-
-    private void SearchClearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchClearBtnActionPerformed
-        // TODO add your handling code here:
-        jTextField1.setText(null);
-        show_PMT_table();
-        DisableNRenameTFS(this.getContentPane());
-        jTextField1.setEditable(true);
-        jButton4.setEnabled(false);jButton5.setEnabled(false);
-    }//GEN-LAST:event_SearchClearBtnActionPerformed
 
     private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
         // TODO add your handling code here:
         if(evt.getKeyCode()==KeyEvent.VK_DOWN || evt.getKeyCode()==KeyEvent.VK_UP){
             showData();
+            jButton4.setEnabled(true);jButton5.setEnabled(true);
         }
     }//GEN-LAST:event_jTable1KeyReleased
 
@@ -547,7 +539,7 @@ public class PMTForm extends javax.swing.JFrame {
             rs = pst.executeQuery();
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException ex) {
-            Logger.getLogger(EmployeeTableForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PMTForm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex);
         }
         }
@@ -555,6 +547,43 @@ public class PMTForm extends javax.swing.JFrame {
             show_PMT_table();
         }
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        connection = DBConnectClass.Connection(username, password);
+        String query = "UPDATE dogpatch06.PMT set `First Name`=?,`Last Name`=?,`Physics`=?,`Chemistry`=?,`Biology`=?,`Physics Teacher ID`=?,`Chemistry Teacher ID`=?,`Biology Teacher ID`=?,`Co-Ordinator ID`=? WHERE ID=?";
+        try{
+            pst=connection.prepareStatement(query);
+            pst.setString(1, fn_tf.getText());pst.setString(2, ln_tf.getText());
+            pst.setInt(3, Integer.parseInt(phy_score.getText()));pst.setInt(4, Integer.parseInt(chem_score.getText()));
+            pst.setInt(5, Integer.parseInt(bio_score.getText()));pst.setInt(6, Integer.parseInt(phy_t_id.getText()));
+            pst.setInt(7, Integer.parseInt(chem_t_id.getText()));pst.setInt(8, Integer.parseInt(bio_t_id.getText()));
+            pst.setInt(9, Integer.parseInt(tenia_id.getText()));pst.setInt(10, Integer.parseInt(ID_tf.getText()));
+            pst.executeUpdate();
+            show_PMT_table();
+            JOptionPane.showMessageDialog(null, "Updated");
+        }catch(SQLException e){
+            Logger.getLogger(PMTForm.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        connection = DBConnectClass.Connection(username, password);
+        String query = "DELETE FROM dogpatch06.PMT where ID=?";
+        try{
+            pst = connection.prepareStatement(query);
+            pst.setInt(1, Integer.parseInt(ID_tf.getText()));
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Deleted");
+        }catch(SQLException e){
+            Logger.getLogger(PMTForm.class.getName()).log(Level.SEVERE,null,e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        DisableNRenameTFS(this.getContentPane());
+        show_PMT_table();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void DisableNRenameTFS(Container container){
         for(Component k : container.getComponents()){
@@ -661,7 +690,6 @@ public class PMTForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ID_tf;
-    private javax.swing.JButton SearchClearBtn;
     private javax.swing.JTextField bio_score;
     private javax.swing.JTextField bio_t;
     private javax.swing.JTextField bio_t_id;
