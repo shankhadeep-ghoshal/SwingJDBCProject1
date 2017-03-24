@@ -123,8 +123,8 @@ public class SelectTableForm extends javax.swing.JFrame {
         if(jButton1.getActionCommand()!=null || jButton2.getActionCommand()!=null){
             this.dispose();
         }else{
+            new LoginForm().setVisible(true);
             this.dispose();
-         new LoginForm().setVisible(true);
         }
     }//GEN-LAST:event_formWindowClosed
 

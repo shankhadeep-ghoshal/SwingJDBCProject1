@@ -638,16 +638,6 @@ public final class SH1Form extends javax.swing.JFrame {
             Logger.getLogger(EmployeeTableForm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex);
         }
-        /*try {
-            sql = "SELECT * FROM employee WHERE Job_Designation LIKE ? ESCAPE '!';";
-            pst= connection.prepareStatement(sql);
-            pst.setString(1,"%"+jTextField1.getText()+"%");
-            rs = pst.executeQuery();
-            employee_table.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (SQLException ex) {
-            Logger.getLogger(EmployeeTableForm.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex);
-        }*/
         }
         if("".equals(jTextField1.getText())){
             show_table_students();
