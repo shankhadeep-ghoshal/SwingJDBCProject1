@@ -438,6 +438,10 @@ public class EmployeeTableForm extends javax.swing.JFrame {
             jButton4.setEnabled(false);
             jButton6.setEnabled(false);
             jTextField1.setText("");
+            ID_field.setBackground(Color.WHITE);
+            salary_field.setBackground(Color.WHITE);
+            name_field.setBackground(Color.WHITE);
+            job_field.setBackground(Color.WHITE);
             try {
                 if (pst != null) {
                     pst.close();
